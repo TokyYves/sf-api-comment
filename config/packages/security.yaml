@@ -31,14 +31,17 @@ security:
             jwt: ~
         login:
             json_login:
-                check_path: /login
+                check_path: /api/login
                 username_path: email
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            refresh_jwt:
+                check_path: /api/token/refresh # or, you may use the `api_refresh_token` route name
 
     access_control:
-        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY , methods: [PUT,PATCH,DELETE]}
         - { path: ^/api/posts, roles: IS_AUTHENTICATED_FULLY , methods: [POST,PUT,PATCH,DELETE]}
         - { path: ^/api/comments, roles: IS_AUTHENTICATED_FULLY , methods: [POST,PUT,PATCH,DELETE]}

@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 trait AddTimestamp
 {
      /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"read_post", "write_post","read_user"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"read_post", "write_post","read_user"})
      */
     private $updatedAt;
     
